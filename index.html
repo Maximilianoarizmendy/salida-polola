@@ -143,7 +143,22 @@
                     <p>Preparar nuestra propia comida deliciosa (sushi, pizza o galletas) y divertirnos en la cocina.</p>
                     <span class="select-indicator"><i class="bi bi-circle"></i> Seleccionar</span>
                 </div>
+
+                <!-- Tarjeta 9: Personalizado -->
+                <div class="plan-card" data-plan="personalizado">
+                    <div class="card-icon"><i class="bi bi-pencil-square"></i></div>
+                    <h3>Propón tu propio plan ✍️</h3>
+                    <p>Si tienes otra idea en mente, escríbela aquí y hagámosla realidad.</p>
+                    <span class="select-indicator"><i class="bi bi-circle"></i> Seleccionar</span>
+                </div>
             </div>
+
+            <!-- Entrada para Plan Personalizado -->
+            <div class="message-input-wrapper" id="custom-plan-wrapper" style="display: none; margin-top: 24px;">
+                <label for="custom-plan-input" class="input-label">¿Cuál es tu plan ideal? 💭</label>
+                <textarea id="custom-plan-input" rows="2" placeholder="Escribe aquí tu plan personalizado..."></textarea>
+            </div>
+
 
             <div class="nav-buttons">
                 <button id="btn-plan-next" class="btn btn-primary btn-disabled" disabled>

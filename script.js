@@ -104,6 +104,8 @@ animateParticles();
 let currentStepId = 'step-invitation';
 let selectedPlan = null;
 let selectedPlace = null;
+let customPlanText = null;
+let customPlaceText = null;
 
 // Medellín places options per plan
 const placesDatabase = {
@@ -446,6 +448,25 @@ lightbox.addEventListener('click', (e) => {
 // ==========================================================================
 const planCards = document.querySelectorAll('.plan-card');
 const btnPlanNext = document.getElementById('btn-plan-next');
+const customPlanWrapper = document.getElementById('custom-plan-wrapper');
+const customPlanInput = document.getElementById('custom-plan-input');
+
+function checkCustomPlanValidity() {
+    if (selectedPlan === 'personalizado') {
+        const val = customPlanInput.value.trim();
+        if (val) {
+            customPlanText = val;
+            btnPlanNext.classList.remove('btn-disabled');
+            btnPlanNext.removeAttribute('disabled');
+        } else {
+            customPlanText = null;
+            btnPlanNext.classList.add('btn-disabled');
+            btnPlanNext.setAttribute('disabled', 'true');
+        }
+    }
+}
+
+customPlanInput.addEventListener('input', checkCustomPlanValidity);
 
 planCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -455,15 +476,29 @@ planCards.forEach(card => {
         card.classList.add('selected');
         
         selectedPlan = card.getAttribute('data-plan');
-        
-        // Enable next button
-        btnPlanNext.classList.remove('btn-disabled');
-        btnPlanNext.removeAttribute('disabled');
+
+        if (selectedPlan === 'personalizado') {
+            // Show custom plan textarea, disable next until filled
+            customPlanWrapper.style.display = 'block';
+            customPlanInput.focus();
+            btnPlanNext.classList.add('btn-disabled');
+            btnPlanNext.setAttribute('disabled', 'true');
+            checkCustomPlanValidity();
+        } else {
+            // Hide custom plan textarea, enable next button normally
+            customPlanWrapper.style.display = 'none';
+            customPlanText = null;
+            btnPlanNext.classList.remove('btn-disabled');
+            btnPlanNext.removeAttribute('disabled');
+        }
     });
 });
 
 btnPlanNext.addEventListener('click', () => {
     if (selectedPlan) {
+        if (selectedPlan === 'personalizado') {
+            customPlanText = customPlanInput.value.trim();
+        }
         populatePlaces();
         navigateTo('step-place');
     }
@@ -480,8 +515,39 @@ function populatePlaces() {
     // Clear container
     placesContainer.innerHTML = '';
     selectedPlace = null;
+    customPlaceText = null;
     btnPlaceNext.classList.add('btn-disabled');
     btnPlaceNext.setAttribute('disabled', 'true');
+
+    if (selectedPlan === 'personalizado') {
+        // Show a freeform input for location
+        placesContainer.innerHTML = `
+            <div class="custom-place-prompt">
+                <div class="custom-place-icon"><i class="bi bi-geo-alt"></i></div>
+                <p class="custom-place-hint">Cuéntame, ¿a dónde te gustaría que fuéramos? 📍</p>
+                <div class="message-input-wrapper" style="text-align:left; width:100%;">
+                    <label for="custom-place-input" class="input-label">Nombre del lugar o dirección</label>
+                    <textarea id="custom-place-input" rows="2" placeholder="Ej: La pizzería de la esquina, tu casa, el parque central..."></textarea>
+                </div>
+            </div>
+        `;
+        const customPlaceInput = document.getElementById('custom-place-input');
+        customPlaceInput.addEventListener('input', () => {
+            const val = customPlaceInput.value.trim();
+            if (val) {
+                customPlaceText = val;
+                selectedPlace = val;
+                btnPlaceNext.classList.remove('btn-disabled');
+                btnPlaceNext.removeAttribute('disabled');
+            } else {
+                customPlaceText = null;
+                selectedPlace = null;
+                btnPlaceNext.classList.add('btn-disabled');
+                btnPlaceNext.setAttribute('disabled', 'true');
+            }
+        });
+        return;
+    }
 
     const places = placesDatabase[selectedPlan];
     
@@ -528,7 +594,10 @@ const btnSummaryBack = document.getElementById('btn-summary-back');
 const btnWhatsapp = document.getElementById('btn-whatsapp');
 
 function generateSummary() {
-    document.getElementById('summary-plan-val').textContent = planNames[selectedPlan];
+    const planDisplay = selectedPlan === 'personalizado'
+        ? `Plan personalizado: ${customPlanText}`
+        : planNames[selectedPlan];
+    document.getElementById('summary-plan-val').textContent = planDisplay;
     document.getElementById('summary-place-val').textContent = selectedPlace;
 }
 
@@ -539,19 +608,22 @@ btnSummaryBack.addEventListener('click', () => {
 btnWhatsapp.addEventListener('click', () => {
     const customMessage = document.getElementById('custom-msg').value.trim();
     
-    let text = `¡Hola mi amor! ❤️ Acepto tu invitación a salir. Este es el plan que armé:\n\n`;
-    text += `✨ *Plan:* ${planNames[selectedPlan]}\n`;
-    text += `📍 *Lugar:* ${selectedPlace}\n`;
-    text += `🇨🇴 *Ciudad:* Medellín\n`;
+    const planDisplay = selectedPlan === 'personalizado'
+        ? `Plan personalizado: ${customPlanText}`
+        : planNames[selectedPlan];
+
+    let text = `Hola mi amor! Acepto tu invitacion a salir. Este es el plan que arme:\n\n`;
+    text += `Plan: ${planDisplay}\n`;
+    text += `Lugar: ${selectedPlace}\n`;
+    text += `Ciudad: Medellin\n`;
     
     if (customMessage) {
-        text += `\n💬 *Mensaje:* "${customMessage}"\n`;
+        text += `\nMensaje: "${customMessage}"\n`;
     }
     
-    text += `\n¡Estoy súper emocionada!`;
+    text += `\nEstoy super emocionada!`;
     
     // Filtrar para mantener solo letras, números, signos de puntuación básicos y caracteres en español.
-    // Esto elimina de raíz cualquier emoji, bandera o carácter especial que cause símbolos ''.
     const cleanText = text
         .replace(/[^\x00-\x7F¡¿áéíóúÁÉÍÓÚñÑüÜ,,.:;!?()""'*\-\s#]/g, '')
         .replace(/[ \t]+/g, ' ') // Normalizar solo espacios/tabs horizontales (preservando \n)

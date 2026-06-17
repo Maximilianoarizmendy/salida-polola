@@ -580,3 +580,33 @@ textarea:focus {
     }
 }
 
+/* Custom Place Prompt (shown when "personalizado" plan selected) */
+.custom-place-prompt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    animation: fadeSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-place-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.custom-place-hint {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
