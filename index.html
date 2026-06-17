@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres salir conmigo? ❤️</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons for premium vector graphics -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Sparkles / Hearts Dynamic Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="app-container">
+        
+        <!-- PANTALLA 1: PROPUESTA INICIAL -->
+        <section id="step-invitation" class="card-step active">
+            <div class="heart-pulse-container">
+                <div class="heart-icon-pulsing">❤️</div>
+            </div>
+            <h1 class="main-title">Hola mi amor... 🥰</h1>
+            <p class="subtitle">Tengo una pregunta muy importante que hacerte y espero que seas totalmente sincera...</p>
+            <h2 class="question-title">¿Me aceptarías una cita romántica? 🌹</h2>
+            
+            <div class="buttons-wrapper" id="invitation-buttons">
+                <button id="btn-si" class="btn btn-primary btn-lg">
+                    <span class="btn-content">¡Sí, obvio! 💖</span>
+                </button>
+                <button id="btn-no" class="btn btn-secondary">
+                    <span>No 😢</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 2: CELEBRACIÓN -->
+        <section id="step-celebration" class="card-step">
+            <div class="celebration-animation">
+                <i class="bi bi-balloon-heart-fill icon-huge"></i>
+            </div>
+            <h1 class="main-title">¡SIII! Sabía que dirías que sí 😍</h1>
+            <p class="subtitle">Me haces el novio más feliz del mundo. Prepárate para la mejor cita.</p>
+            <p class="instruction-text">Antes de planear, recordemos algunos momentos especiales juntos... ✨</p>
+            
+            <button id="btn-start-celebration" class="btn btn-primary">
+                <span>Ver nuestros recuerdos 📸</span>
+            </button>
+        </section>
+
+        <!-- PANTALLA NUEVA: GALERÍA DE IMÁGENES -->
+        <section id="step-gallery" class="card-step">
+            <h1 class="section-title">Nuestra Historia ❤️</h1>
+            <p class="subtitle">Cada momento a tu lado es mi favorito. Haz clic en las fotos para ampliarlas.</p>
+            
+            <div class="gallery-grid" id="gallery-container"></div>
+
+            <div class="nav-buttons">
+                <button id="btn-gallery-next" class="btn btn-primary">
+                    <span>Planear Cita <i class="bi bi-arrow-right-short"></i></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Lightbox para expandir imágenes -->
+        <div id="lightbox" class="lightbox-overlay">
+            <span class="lightbox-close">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+
+        <!-- PANTALLA 3: SELECCIÓN DE PLAN -->
+        <section id="step-plan" class="card-step">
+            <span class="step-badge">Paso 1 de 3</span>
+            <h1 class="section-title">¿Qué plan prefieres? 🗺️</h1>
+            <p class="subtitle">Elige la vibra o experiencia que más te gustaría vivir esta vez</p>
+            
+            <div class="plans-grid">
+                <!-- Tarjeta 1: Cena -->
+                <div class="plan-card" data-plan="cena">
+                    <div class="card-icon"><i class="bi bi-glass-ease"></i></div>
+                    <h3>Cena Romántica</h3>
+                    <p>Una velada íntima con luces tenues, música suave y la comida más espectacular.</p>
+                    <span class="select-indicator"><i class="bi bi-circle"></i> Seleccionar</span>
+                </div>
+
+                <!-- Tarjeta 2: Picnic -->
+                <div class="plan-card" data-plan="picnic">
+                    <div class="card-icon"><i class="bi bi-flower1"></i></div>
+                    <h3>Picnic al Aire Libre</h3>
+                    <p>Rodeados de naturaleza, mantita en el pasto, fresas con chocolate y un atardecer.</p>
+                    <span class="select-indicator"><i class="bi bi-circle"></i> Seleccionar</span>
+                </div>
+
+                <!-- Tarjeta 3: Café -->
+                <div class="plan-card" data-plan="cafe">
+                    <div class="card-icon"><i class="bi bi-cup-hot"></i></div>
+                    <h3>Tarde de Café & Postre</h3>
+                    <p>Conversación deliciosa, un café de origen exquisito y los mejores postres.</p>
+                    <span class="select-indicator"><i class="bi bi-circle"></i> Seleccionar</span>
+                </div>
+
+                <!-- Tarjeta 4: Mirador -->
+                <div class="plan-card" data-plan="mirador">
+                    <div class="card-icon"><i class="bi bi-stars"></i></div>
+                    <h3>Mirador & Luces</h3>
+                    <p>Subir a ver el atardecer, sentir el viento frío y contemplar Medellín iluminada.</p>
+                    <span class="select-indicator"><i class="bi bi-circle"></i> Seleccionar</span>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button id="btn-plan-next" class="btn btn-primary btn-disabled" disabled>
+                    <span>Siguiente <i class="bi bi-arrow-right"></i></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 4: SELECCIÓN DE LUGAR -->
+        <section id="step-place" class="card-step">
+            <span class="step-badge">Paso 2 de 3</span>
+            <h1 class="section-title">¿A qué lugar deberíamos ir? 📍</h1>
+            <p class="subtitle">Elige el sitio en Medellín que más te llame la atención para nuestro plan</p>
+            
+            <!-- Este grid se llenará dinámicamente según el plan elegido en JS -->
+            <div class="places-grid" id="places-container"></div>
+
+            <div class="nav-buttons">
+                <button id="btn-place-back" class="btn btn-outline">
+                    <span><i class="bi bi-arrow-left"></i> Atrás</span>
+                </button>
+                <button id="btn-place-next" class="btn btn-primary btn-disabled" disabled>
+                    <span>Siguiente <i class="bi bi-arrow-right"></i></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 5: RESUMEN Y CONFIRMACIÓN -->
+        <section id="step-summary" class="card-step">
+            <span class="step-badge">Paso 3 de 3</span>
+            <h1 class="section-title">¡Cita ideal programada! 📅</h1>
+            <p class="subtitle">Aquí tienes los detalles de lo que has elegido para nosotros:</p>
+            
+            <div class="summary-box">
+                <div class="summary-item">
+                    <span class="label">Plan:</span>
+                    <span class="value" id="summary-plan-val">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Lugar:</span>
+                    <span class="value" id="summary-place-val">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Ciudad:</span>
+                    <span class="value">Medellín, Colombia 🇨🇴</span>
+                </div>
+            </div>
+
+            <div class="message-input-wrapper">
+                <label for="custom-msg" class="input-label">¿Quieres dejarme un mensaje o sugerir fecha/hora?</label>
+                <textarea id="custom-msg" rows="3" placeholder="Ej: Me gustaría que fuera este sábado a las 7:00 pm, ¡te amo! ❤️"></textarea>
+            </div>
+
+            <div class="nav-buttons vertical">
+                <button id="btn-whatsapp" class="btn btn-whatsapp">
+                    <span><i class="bi bi-whatsapp"></i> Confirmar cita por WhatsApp</span>
+                </button>
+                <button id="btn-summary-back" class="btn btn-outline btn-sm">
+                    <span><i class="bi bi-arrow-left"></i> Cambiar elecciones</span>
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Canvas Confetti Overlay (for celebration) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
