@@ -476,8 +476,15 @@ btnWhatsapp.addEventListener('click', () => {
         text += `\n💬 *Mensaje:* "${customMessage}"\n`;
     }
     
-    text += `\n¡Estoy súper emocionada! 😍`;
+    text += `\n¡Estoy súper emocionada!`;
     
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    // Filtrar para mantener solo letras, números, signos de puntuación básicos y caracteres en español.
+    // Esto elimina de raíz cualquier emoji, bandera o carácter especial que cause símbolos ''.
+    const cleanText = text
+        .replace(/[^\x00-\x7F¡¿áéíóúÁÉÍÓÚñÑüÜ,,.:;!?()""'*\-\s#]/g, '')
+        .replace(/[ \t]+/g, ' ') // Normalizar solo espacios/tabs horizontales (preservando \n)
+        .trim();
+
+    const whatsappUrl = `https://wa.me/573014085511?text=${encodeURIComponent(cleanText)}`;
     window.open(whatsappUrl, '_blank');
 });
