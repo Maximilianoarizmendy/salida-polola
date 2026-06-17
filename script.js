@@ -174,6 +174,74 @@ const placesDatabase = {
             name: 'Terraza El Tesoro (menos)',
             description: 'Una vista privilegiada de la ciudad con la comodidad de cafés y heladerías excelentes.'
         }
+    ],
+    aventura: [
+        {
+            id: 'guatape',
+            name: 'Paseo a Guatapé ⛵',
+            description: 'Subir a la Piedra del Peñol, comer trucha deliciosa y dar una vuelta en lancha.'
+        },
+        {
+            id: 'explora',
+            name: 'Parque Explora & Planetario 🚀',
+            description: 'Un día súper divertido interactuando con la ciencia, el acuario y viendo las estrellas.'
+        },
+        {
+            id: 'arvi-trek',
+            name: 'Senderismo en Parque Arví 🥾',
+            description: 'Caminar entre senderos ecológicos gigantes y respirar aire puro de bosque.'
+        }
+    ],
+    cine: [
+        {
+            id: 'cine-vip',
+            name: 'Cine VIP (El Tesoro u Oviedo) 🍿',
+            description: 'Sillas reclinables espectaculares, comida deliciosa a la mesa y máxima comodidad.'
+        },
+        {
+            id: 'cine-estrellas',
+            name: 'Cine a Cielo Abierto 🌌',
+            description: 'Ver una gran película bajo las estrellas con mantita y palomitas.'
+        },
+        {
+            id: 'cine-casa',
+            name: 'Maratón de Pelis en Casa 🎬',
+            description: 'Tu película o serie favorita, cobijas gigantes, pizza y snacks ilimitados.'
+        }
+    ],
+    juegos: [
+        {
+            id: 'bolos-mde',
+            name: 'Bolos (Bowlerama / Monterrey) 🎳',
+            description: 'Un juego competitivo súper divertido con comida rápida y malteadas.'
+        },
+        {
+            id: 'arcade-tesoro',
+            name: 'Arcade & Videojuegos 🕹️',
+            description: 'Jugar clásicos de maquinitas, simuladores de carreras y ganar tickets juntos.'
+        },
+        {
+            id: 'juegos-casa',
+            name: 'Noche de Juegos de Mesa 🎲',
+            description: 'Competir en Monopoly, Jenga o cartas comiendo cositas ricas en casa.'
+        }
+    ],
+    cocinar: [
+        {
+            id: 'pizza-casera',
+            name: 'Preparar Pizza Casera 🍕',
+            description: 'Hacer la masa desde cero y ponerle nuestros ingredientes favoritos.'
+        },
+        {
+            id: 'sushi-casa',
+            name: 'Hacer Sushi en Pareja 🍣',
+            description: 'Aprender a enrollar nuestro propio sushi y pasar un rato divertido comiendo rico.'
+        },
+        {
+            id: 'hornear-galletas',
+            name: 'Hornear Galletas con Chispas 🍪',
+            description: 'Llenar la cocina de harina, hornear galletas y comerlas calientes con leche.'
+        }
     ]
 };
 
@@ -182,7 +250,11 @@ const planNames = {
     cena: 'Cena Romántica ✨',
     picnic: 'Picnic al Aire Libre 🧺',
     cafe: 'Tarde de Café & Postre ☕',
-    mirador: 'Mirador & Luces 🌅'
+    mirador: 'Mirador & Luces 🌅',
+    aventura: 'Día de Aventura 🧭',
+    cine: 'Noche de Películas 🎬',
+    juegos: 'Bolos & Arcade 🎮',
+    cocinar: 'Cocinar Juntos 🍳'
 };
 
 // ==========================================================================
